@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
-import {Grid, Container, Button, Form} from 'semantic-ui-react';
+import {Grid, Container, Button} from 'semantic-ui-react';
 import {connect} from 'react-redux';
+
+import {Formik, Field, Form, ErrorMessage} from 'formik';
 
 import * as actions from '../../actions/auth';
 
@@ -11,11 +13,11 @@ import * as actions from '../../actions/auth';
 // }));
 
 class SignUp extends Component {
-    handleSubmit = ({target}) => {
+    handleSubmit = ({values, actions}) => {
         // console.log('email', target.elements.email.value);
         // console.log('password', target.elements.password.value);
-        const {email, password} = target.elements;
-        this.props.registerUser(email.value, password.value);
+        const {email, password} = values;
+        this.props.registerUser(email, password);
     };
 
     render() {
@@ -25,7 +27,7 @@ class SignUp extends Component {
                 <Grid centered columns={2}>
                     <Grid.Column>
                         <h3>Sign Up</h3>
-                        <Form onSubmit={this.handleSubmit}>
+                        {/* <Form onSubmit={this.handleSubmit}>
                             <Form.Field>
                                 <label>Email</label>
                                 <input
@@ -41,7 +43,53 @@ class SignUp extends Component {
                                 />
                             </Form.Field>
                             <Button type="submit">Submit</Button>
-                        </Form>
+                        </Form> */}
+                        <Formik
+                            initialValues={{email: '', password: ''}}
+                            onSubmit={this.handleSubmit}
+                            render={({
+                                errors,
+                                touched,
+                                isSubmitting,
+                                status,
+                            }) => (
+                                <Form className="ui form">
+                                    <div className="field">
+                                        <label>Email</label>
+                                        <Field
+                                            type="email"
+                                            name="email"
+                                            disabled={isSubmitting}
+                                        />
+                                        <ErrorMessage
+                                            name="email"
+                                            component="div"
+                                        />
+                                    </div>
+                                    <div className="field">
+                                        <label>Password</label>
+                                        <Field
+                                            type="password"
+                                            name="password"
+                                            disabled={isSubmitting}
+                                        />
+                                        <ErrorMessage
+                                            name="password"
+                                            component="div"
+                                        />
+                                    </div>
+                                    {status && status.msg && (
+                                        <div>{status.msg}</div>
+                                    )}
+                                    <Button
+                                        type="submit"
+                                        disabled={isSubmitting}
+                                    >
+                                        Submit
+                                    </Button>
+                                </Form>
+                            )}
+                        />
                     </Grid.Column>
                 </Grid>
             </Container>

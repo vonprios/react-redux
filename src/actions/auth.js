@@ -7,6 +7,10 @@ export const registerUser = (email, password) => dispatch => {
     firebase
         .auth()
         .createUserWithEmailAndPassword(email, password)
+        .then(res => {
+            dispatch(changeAuth(true));
+            alerts.success('Successful');
+        })
         .catch(error => {
             console.log(error.code, error.message);
             alerts.error(error.message);
