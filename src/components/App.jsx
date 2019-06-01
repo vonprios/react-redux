@@ -1,9 +1,24 @@
 import React, {Component} from 'react';
 import {Route} from 'react-router-dom';
+
+import {connect} from 'react-redux';
+import firebaseApp from '../utils/firebase';
+
 import Home from './Home';
 import Posts from './Posts';
 
 class App extends Component {
+    //컴포넌트가 마운트 되기전에 로그인 유무 체크
+    componentWillMount() {
+        firebaseApp.auth().onAuthStateChanged(user => {
+            if (user) {
+                console.log('logged in');
+            } else {
+                console.log('not logged in');
+            }
+        });
+    }
+
     //함수, 상태 설정
     render() {
         //상수 설정
@@ -17,6 +32,6 @@ class App extends Component {
     }
 }
 
-export default App;
+export default connect(null)(App);
 
 //redux - react 의 데이터 상태 추적 라이브러리
