@@ -8,6 +8,7 @@ import Home from './Home';
 import Posts from './Posts';
 
 import HeaderNav from './common/HeaderNav';
+import SignUp from '../components/auth/SignUp';
 import '../assets/styles/app.scss';
 
 class App extends Component {
@@ -29,8 +30,11 @@ class App extends Component {
             //html
             <div>
                 <HeaderNav />
-                <Route exact path="/" component={Home} />
-                <Route path="/posts" component={Posts} />
+                <section className="app-wrapper">
+                    <Route exact path="/" component={Home} />
+                    <Route path="/posts" component={Posts} />
+                    <Route path="/signup" component={SignUp} />
+                </section>
             </div>
         );
     }

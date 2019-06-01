@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Button, Card} from '@blueprintjs/core';
 
 class Home extends Component {
     //함수, 상태 설정
@@ -7,9 +6,9 @@ class Home extends Component {
         //상수 설정
         return (
             //html
-            <section className="app-wrapper">
+            <div>
                 <h2>Home</h2>
-                <Card>
+                <div>
                     <h3>Lorem Ipsum Dolor</h3>
                     <p>
                         Lorem ipsum dolor sit amet, consectetur adipisicing
@@ -39,8 +38,8 @@ class Home extends Component {
                         libero nisl eleifend tortor, vitae cursus risus mauris
                         vitae nisi. Cras laoreet ultrices ligula eget tempus.
                     </p>
-                </Card>
-            </section>
+                </div>
+            </div>
         );
     }
 }
