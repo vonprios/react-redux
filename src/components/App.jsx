@@ -18,3 +18,5 @@ class App extends Component {
 }
 
 export default App;
+
+//redux - react 의 데이터 상태 추적 라이브러리
