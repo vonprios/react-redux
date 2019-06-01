@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Container} from 'semantic-ui-react';
 
 class Home extends Component {
     //함수, 상태 설정
@@ -6,7 +7,7 @@ class Home extends Component {
         //상수 설정
         return (
             //html
-            <div>
+            <Container>
                 <h2>Home</h2>
                 <div>
                     <h3>Lorem Ipsum Dolor</h3>
@@ -39,7 +40,7 @@ class Home extends Component {
                         vitae nisi. Cras laoreet ultrices ligula eget tempus.
                     </p>
                 </div>
-            </div>
+            </Container>
         );
     }
 }

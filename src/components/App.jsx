@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {Route} from 'react-router-dom';
 
 import {connect} from 'react-redux';
-import firebaseApp from '../utils/firebase';
 
 import Home from './Home';
 import Posts from './Posts';
@@ -12,16 +11,16 @@ import SignUp from '../components/auth/SignUp';
 import '../assets/styles/app.scss';
 
 class App extends Component {
-    //컴포넌트가 마운트 되기전에 로그인 유무 체크
-    componentWillMount() {
-        firebaseApp.auth().onAuthStateChanged(user => {
-            if (user) {
-                console.log('logged in');
-            } else {
-                console.log('not logged in');
-            }
-        });
-    }
+    //컴포넌트가 마운트 되기전에 로그인 유무 체크 componentWillMount
+    // componentWillMount() {
+    //     firebaseApp.auth().onAuthStateChanged(user => {
+    //         if (user) {
+    //             console.log('logged in');
+    //         } else {
+    //             console.log('not logged in');
+    //         }
+    //     });
+    // }
 
     //함수, 상태 설정
     render() {
