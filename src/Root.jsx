@@ -1,7 +1,7 @@
 import React from 'react';
 import {Provider} from 'react-redux';
-import {createStore, applyMiddleware, compose} from 'redux';
-import {reactReduxFirebase, getFirebase} from 'react-redux-firebase';
+import {createStore, applyMiddleware} from 'redux';
+// import {reactReduxFirebase, getFirebase} from 'react-redux-firebase';
 import reducers from './reducers';
 import reduxThunk from 'redux-thunk';
 import firebase from 'firebase/app';
@@ -19,23 +19,26 @@ const firebaseConfig = {
     appId: '1:114495890113:web:aacb050f1beb3e72',
 };
 
-const rrfConfig = {
-    userProfile: 'users',
-    userFirestoreForProfile: true,
-};
+// const rrfConfig = {
+//     userProfile: 'users',
+//     userFirestoreForProfile: true,
+// };
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-const createStoreWithFirebase = compose(
-    applyMiddleware(reduxThunk.withExtraArgument(getFirebase)),
-    reactReduxFirebase(firebase, rrfConfig)
-)(createStore);
+// const createStoreWithFirebase = compose(
+//     applyMiddleware(reduxThunk.withExtraArgument(getFirebase)),
+//     reactReduxFirebase(firebase, rrfConfig)
+// )(createStore);
+
+const middleware = applyMiddleware(reduxThunk);
 
 export default ({children, initialState = {}}) => {
-    const store = createStoreWithFirebase(
+    const store = createStore(
         reducers, //사용자 반응 상태
-        initialState //초기값
+        initialState, //초기값,
+        middleware
     );
     return <Provider store={store}>{children}</Provider>;
 };
