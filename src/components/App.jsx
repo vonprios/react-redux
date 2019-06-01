@@ -7,6 +7,9 @@ import firebaseApp from '../utils/firebase';
 import Home from './Home';
 import Posts from './Posts';
 
+import HeaderNav from './common/HeaderNav';
+import '../assets/styles/app.scss';
+
 class App extends Component {
     //컴포넌트가 마운트 되기전에 로그인 유무 체크
     componentWillMount() {
@@ -25,6 +28,7 @@ class App extends Component {
         return (
             //html
             <div>
+                <HeaderNav />
                 <Route exact path="/" component={Home} />
                 <Route path="/posts" component={Posts} />
             </div>
