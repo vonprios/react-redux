@@ -1,24 +1,29 @@
-import firebase from 'firebase/app';
+// import firebase from 'firebase/app';
 import * as types from './types';
-import * as alerts from '../utils/alerts';
+// import * as alerts from '../utils/alerts';
 
-export const registerUser = (email, password) => dispatch => {
-    console.log(email, password);
-    return firebase
-        .auth()
-        .createUserWithEmailAndPassword(email, password)
-        .then(res => {
-            dispatch(changeAuth(true));
-            alerts.success('Successful');
-        })
-        .catch(error => {
-            console.log(error.code, error.message);
-            alerts.error(error.message);
-        });
+// export const registerUser = (email, password) => dispatch => {
+//     console.log(email, password);
+//     return firebase
+//         .auth()
+//         .createUserWithEmailAndPassword(email, password)
+//         .then(res => {
+//             dispatch(changeAuth(true));
+//             alerts.success('Successful');
+//         })
+//         .catch(error => {
+//             console.log(error.code, error.message);
+//             alerts.error(error.message);
+//         });
+// };
+
+export const changeAuth = isAuthed => dispatch => {
+    localStorage.setItem('isAuthed', isAuthed);
+    dispatch(setAuth(isAuthed));
 };
 
-export const changeAuth = isAuthed => ({
-    type: types.CHANGE_AUTH,
+export const setAuth = isAuthed => ({
+    type: types.SET_AUTH,
     isAuthed: isAuthed,
 });
 

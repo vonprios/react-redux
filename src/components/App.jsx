@@ -52,7 +52,7 @@ class App extends Component {
         return (
             //html
             <div>
-                <HeaderNav isAuthed={auth} onLogout={this.handleLogout} />
+                <HeaderNav isAuthed={auth} handleLogout={this.handleLogout} />
                 <section className="app-wrapper">
                     <Route exact path="/" component={Home} />
                     <Route path="/posts" component={Posts} />

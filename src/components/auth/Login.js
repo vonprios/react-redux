@@ -19,7 +19,24 @@ const LoginSchema = Yup.object().shape({
 });
 
 class Login extends Component {
-    handleSubmit = (values, actions) => {};
+    handleSubmit = (values, actions) => {
+        actions.setSubmitting(true);
+        const {email, password} = values;
+        firebase
+            .auth()
+            .signInWithEmailAndPassword(email, password)
+            .then(res => {
+                this.props.changeAuth(true);
+                alerts.success('Successfully logged in!');
+                this.props.history.push('/posts');
+            })
+            .catch(error => {
+                this.props.changeAuth(false);
+                alerts.error(error.message);
+                actions.setSubmitting(false);
+                actions.resetForm();
+            });
+    };
     render() {
         return (
             <Container>
@@ -29,7 +46,12 @@ class Login extends Component {
                             initialValues={{email: '', password: ''}}
                             onSubmit={this.handleSubmit}
                             validationSchema={LoginSchema}
-                            render={({errors, touched, isSubmitting}) => (
+                            render={({
+                                errors,
+                                touched,
+                                isSubmitting,
+                                status,
+                            }) => (
                                 <>
                                     <Message
                                         attached
@@ -37,7 +59,7 @@ class Login extends Component {
                                         content="Fill out the form below to log into your account"
                                     />
                                     <Form className="ui form attached fluid segment">
-                                        <div>
+                                        <div className="field">
                                             <label>Email</label>
                                             <Field
                                                 type="email"
@@ -49,7 +71,7 @@ class Login extends Component {
                                                 component="div"
                                             />
                                         </div>
-                                        <div>
+                                        <div className="field">
                                             <label>Password</label>
                                             <Field
                                                 type="password"
@@ -85,7 +107,7 @@ class Login extends Component {
     }
 }
 
-//mapStateToProps 각각의 상태값을 속석으로 내보냄
+//mapStateToProps 각각의 상태값을 속성으로 내보냄
 const mapStateToProps = ({auth}) => ({
     auth,
 });

@@ -1,7 +1,10 @@
-import {CHANGE_AUTH} from '../actions/types';
-export default (auth = false, action) => {
+import {SET_AUTH} from '../actions/types';
+
+const isAuthed = localStorage.getItem('isAuthed') || false;
+
+export default (auth = isAuthed, action) => {
     switch (action.type) {
-        case CHANGE_AUTH:
+        case SET_AUTH:
             return action.isAuthed;
         default:
             return auth;
