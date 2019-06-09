@@ -1,9 +1,14 @@
 import * as types from '../actions/types';
 
-export default (posts = [], action) => {
+const initalState = {
+    list: [],
+    showModal: false,
+};
+
+export default (posts = initalState, action) => {
     switch (action.type) {
         case types.SET_POSTS:
-            return action.posts;
+            return {...posts, list: action.list};
         default:
             return posts;
     }
