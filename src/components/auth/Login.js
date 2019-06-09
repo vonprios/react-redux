@@ -8,7 +8,7 @@ import {Formik, Field, Form, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
 import * as alerts from '../../utils/alerts';
 
-const SignupSchema = Yup.object().shape({
+const LoginSchema = Yup.object().shape({
     email: Yup.string()
         .email('Invalid email')
         .required('Required'),
@@ -18,24 +18,8 @@ const SignupSchema = Yup.object().shape({
         .required('Required'),
 });
 
-class SignUp extends Component {
-    handleSubmit = (values, actions) => {
-        actions.setSubmitting(true);
-        const {email, password} = values;
-        firebase
-            .auth()
-            .createUserWithEmailAndPassword(email, password)
-            .then(res => {
-                this.props.changeAuth(true);
-                alerts.success('Successfully registered!');
-                this.props.history.push('/posts');
-            })
-            .catch(error => {
-                this.props.changeAuth(false);
-                alerts.error(error.message);
-            });
-    };
-
+class Login extends Component {
+    handleSubmit = (values, actions) => {};
     render() {
         return (
             <Container>
@@ -44,16 +28,16 @@ class SignUp extends Component {
                         <Formik
                             initialValues={{email: '', password: ''}}
                             onSubmit={this.handleSubmit}
-                            validationSchema={SignupSchema}
+                            validationSchema={LoginSchema}
                             render={({errors, touched, isSubmitting}) => (
                                 <>
                                     <Message
                                         attached
-                                        header="Sign Up"
-                                        content="Fill out the form below to sign-up for a new account"
+                                        header="Log In"
+                                        content="Fill out the form below to log into your account"
                                     />
                                     <Form className="ui form attached fluid segment">
-                                        <div className="field">
+                                        <div>
                                             <label>Email</label>
                                             <Field
                                                 type="email"
@@ -65,7 +49,7 @@ class SignUp extends Component {
                                                 component="div"
                                             />
                                         </div>
-                                        <div className="field">
+                                        <div>
                                             <label>Password</label>
                                             <Field
                                                 type="password"
@@ -77,9 +61,6 @@ class SignUp extends Component {
                                                 component="div"
                                             />
                                         </div>
-                                        {/* {status && status.msg && (
-                                            <div>{status.msg}</div>
-                                        )} */}
                                         <Button
                                             type="submit"
                                             disabled={isSubmitting}
@@ -88,8 +69,10 @@ class SignUp extends Component {
                                         </Button>
                                     </Form>
                                     <Message attached="bottom" warning>
-                                        Already signed up?{' '}
-                                        <Link to="/login">Login here</Link>{' '}
+                                        Not signed up?
+                                        <Link to="/signup">
+                                            Sign up here
+                                        </Link>{' '}
                                         instead.
                                     </Message>
                                 </>
@@ -101,10 +84,13 @@ class SignUp extends Component {
         );
     }
 }
+
+//mapStateToProps 각각의 상태값을 속석으로 내보냄
 const mapStateToProps = ({auth}) => ({
     auth,
 });
+
 export default connect(
     mapStateToProps,
     actions
-)(SignUp);
+)(Login);
