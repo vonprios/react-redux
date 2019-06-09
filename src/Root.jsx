@@ -8,6 +8,7 @@ import firebase from 'firebase/app';
 import 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
+import logger from 'redux-logger';
 
 const firebaseConfig = {
     apiKey: 'AIzaSyAaaFU641XrTcWR0jlZeoX5UR1eDLl6F8M',
@@ -38,7 +39,8 @@ export default ({children, initialState = {}}) => {
     const store = createStore(
         reducers, //사용자 반응 상태
         initialState, //초기값,
-        middleware
+        middleware,
+        logger
     );
     return <Provider store={store}>{children}</Provider>;
 };
