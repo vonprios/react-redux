@@ -13,6 +13,7 @@ import HeaderNav from './common/HeaderNav';
 import SignUp from '../components/auth/SignUp';
 import '../assets/styles/app.scss';
 import * as authAction from '../actions/auth';
+import * as alerts from '../utils/alerts';
 
 class App extends Component {
     //컴포넌트가 마운트 되기전에 로그인 유무 체크 componentWillMount
@@ -27,7 +28,17 @@ class App extends Component {
     }
 
     handleLogout = () => {
-        this.props.logout();
+        // this.props.logout();
+        firebase
+            .auth()
+            .signOut()
+            .then(() => {
+                this.props.changeAuth(false);
+                alerts.success('Successfully logged out');
+            })
+            .catch(err => {
+                alerts.error(err.message);
+            });
     };
 
     //함수, 상태 설정

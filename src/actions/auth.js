@@ -4,7 +4,7 @@ import * as alerts from '../utils/alerts';
 
 export const registerUser = (email, password) => dispatch => {
     console.log(email, password);
-    firebase
+    return firebase
         .auth()
         .createUserWithEmailAndPassword(email, password)
         .then(res => {
